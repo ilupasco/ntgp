@@ -6,11 +6,13 @@ TARGET_BIN := ntgp
 BUILD_DIR := ./build
 MAIN_DIR := .
 
-TOKEN := ""
-CHAT := ""
-TI := ""
+# env
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
+endif
 
-.PHONY: lint build
+.PHONY: env lint build
 
 lint:
 	golangci-lint fmt ./...
@@ -19,7 +21,8 @@ lint:
 build: lint
 	CGO_ENABLED=0 \
 	go build -ldflags \
-		"-w -s -X main.buildVersion=$(VERSION) \
+		"-w -s \
+		-X main.buildVersion=$(VERSION) \
 		-X main.buildDate=$(DATE) \
 		-X main.botToken=$(TOKEN) \
 		-X main.chatID=$(CHAT) \
