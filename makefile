@@ -2,6 +2,7 @@ SHELL=/bin/bash
 
 VERSION := v1.0.7
 DATE := $(shell date '+%Y-%m-%d')
+
 TARGET_BIN := ntgp
 BUILD_DIR := ./build
 MAIN_DIR := .
@@ -12,7 +13,7 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
-.PHONY: env lint build
+.PHONY: lint build
 
 lint:
 	golangci-lint fmt ./...
